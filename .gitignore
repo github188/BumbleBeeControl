@@ -2,8 +2,8 @@
 *.vs
 *.VC.db
 *.sln
-*.vcxproj.*
-
+*.vcxproj*
+/release
 # C++ objects and libs
 
 *.slo
