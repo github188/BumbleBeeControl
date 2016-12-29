@@ -1,3 +1,8 @@
+# Visual Studio
+*.VC.db
+*.sln
+*.vcxproj.*
+
 # C++ objects and libs
 
 *.slo
