@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Settings</class>
+ <widget class="QDialog" name="Settings">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Setting</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="settingTabWidget">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="usbcanConfig">
+      <attribute name="title">
+       <string>CANs设置</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="deviceConfig_group">
+         <property name="title">
+          <string>设备参数</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="canInitialConfig_group">
+            <property name="title">
+             <string>初始化CAN参数</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0" colspan="2">
+              <layout class="QHBoxLayout" name="acceptCode">
+               <item>
+                <widget class="QLabel" name="acceptCode_label">
+                 <property name="text">
+                  <string>验收码:0x</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="acceptCode_input">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>00000000</string>
+                 </property>
+                 <property name="maxLength">
+                  <number>8</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="2" colspan="2">
+              <layout class="QHBoxLayout" name="mask">
+               <item>
+                <widget class="QLabel" name="mask_label">
+                 <property name="text">
+                  <string>屏蔽码:0x</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="mask_input">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>ffffffff</string>
+                 </property>
+                 <property name="maxLength">
+                  <number>8</number>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="baudRate">
+               <item>
+                <widget class="QLabel" name="baudRate_label">
+                 <property name="text">
+                  <string>波特率(Kps):</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="baudRate_combobox">
+                 <item>
+                  <property name="text">
+                   <string>1000</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>800</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>666</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>500</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>400</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>250</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>125</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>100</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>80</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>50</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>40</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>20</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>10</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>5</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <layout class="QHBoxLayout" name="filterMode">
+               <item>
+                <widget class="QLabel" name="filterMode_label">
+                 <property name="text">
+                  <string>滤波方式:</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="filterMode_combobox">
+                 <item>
+                  <property name="text">
+                   <string>双滤波</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>单滤波</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="3">
+              <layout class="QHBoxLayout" name="mode">
+               <item>
+                <widget class="QLabel" name="mode_label">
+                 <property name="text">
+                  <string>模式:</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="mode_combobox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>75</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="acceptDrops">
+                  <bool>false</bool>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>正常模式</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>只听模式</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="commonConfig">
+            <item>
+             <widget class="QLabel" name="deviceType_label">
+              <property name="text">
+               <string>类型:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="deviceType_combobox">
+              <property name="minimumSize">
+               <size>
+                <width>95</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>VCI_PCI5121</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI9810</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_USBCAN1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_USBCAN2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_USBCAN2A</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI9820</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_CAN232</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI5110</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_CANLITE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_ISA9620</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_ISA5420</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PC104CAN</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_CANETUDP</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_CANETE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_DNP9810</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI9840</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PC104CAN2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI9820I</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_CANETTCP</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PEC9920</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI5010U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_USBCAN_E_U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_USBCAN_2E_U</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>VCI_PCI5020U</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="indexNum_label">
+              <property name="text">
+               <string>索引号:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="indexNum_combobox">
+              <item>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>7</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="canNum_label">
+              <property name="text">
+               <string>第几路CAN:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="canNum_combobox">
+              <item>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>3</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="0">
+           <spacer name="usbcanConfig_verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="expsetting">
+      <attribute name="title">
+       <string>实验设置</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="expsettingGridLayout">
+         <item row="2" column="0">
+          <widget class="QLabel" name="dataSavePathLabel">
+           <property name="text">
+            <string>数据保存路径</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QLineEdit" name="dataSavePathEdit">
+           <property name="maxLength">
+            <number>100</number>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QLineEdit" name="bumblebeeNumEdit">
+           <property name="maxLength">
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QPushButton" name="getSavePathDirToolButton">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="bumblebeeTrainTrialLabel">
+           <property name="text">
+            <string>训练次数</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="bumblebeeNumLabel">
+           <property name="text">
+            <string>熊蜂编号</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="bumblebeeTrainTrialEdit">
+           <property name="maxLength">
+            <number>3</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>224</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="saveAndCancel_buttom">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>saveAndCancel_buttom</sender>
+   <signal>accepted()</signal>
+   <receiver>Settings</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveAndCancel_buttom</sender>
+   <signal>rejected()</signal>
+   <receiver>Settings</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>383</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
