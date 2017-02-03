@@ -27,6 +27,7 @@
 #include "hdf5sink.h"
 #include "opencvsink.h"
 #include "settings.h"
+#include "stimulusparams.h"
 
 namespace Ui {
 class MainWindow;
@@ -70,8 +71,10 @@ private Q_SLOTS:
     void changeStimulusButtonsState();
 	//Change record button state
 	void changeRecordButtonsState();
+    //setStimulate param
+    void setStiParamFromPanel(StimulusParams*, qint32);
     //sendStimulate func
-    void sendStimulate(quint32 direction);
+    void sendStimulate(StimulusParams*);
 	//改变Config中的Status s_stimulus标记位
 	void changeStimulateStatus();
     //void init_status();
@@ -83,7 +86,6 @@ private:
 
     void cleanRecordInfoPanel();
     void readGeometrySetting();
-    void get_stimulte_para();
     void reset_devices();
 
 private:
@@ -91,6 +93,8 @@ private:
     QPixmap _grayPixmap, _greenPixmap;
 
     VCI_INIT_CONFIG _init_config;
+
+    StimulusParams *_stiParamPtr;
 
     QTimer _displayTimer;
     QTimer _recordInfoUpdaterTimer;

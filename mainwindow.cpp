@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     //注册ImagePacket,使其能在信号槽中传递
     qRegisterMetaType<ImagePacket>("imagePacket");
+    qRegisterMetaType<StimulusParams>("stimulusparams");
 
     //设置显示时间间隔并连接QTimer与更新函数
     _displayTimer.setInterval(_displayInterval);
@@ -325,12 +326,30 @@ void MainWindow::on_openCan_clicked()
     }
 }
 
-
-void MainWindow::sendStimulate(quint32 direction)
+void MainWindow::setStiParamFromPanel(StimulusParams *stiParamPtr, qint32 deriction)
 {
-	//获取刺激参数
-	get_stimulte_para();
 
+    //从面板获取设置参数
+    Configs::expconfig.paraconfig.dutyCycle = ui->dutyCycle_input->text().toInt();
+    Configs::expconfig.paraconfig.frequency = ui->frequency_input->text().toInt();
+    Configs::expconfig.paraconfig.periodCount = ui->periodCount_input->text().toInt();
+    Configs::expconfig.paraconfig.stimulusCount = ui->stimulusCount_input->text().toInt();
+    //刺激间隔暂时无设置，默认为0
+    Configs::expconfig.paraconfig.stimulusInterval = 0;
+    Configs::expconfig.paraconfig.deriction = deriction;
+
+    //写入参数包中
+    stiParamPtr->_dutyCycle = quint32(Configs::expconfig.paraconfig.dutyCycle);
+    stiParamPtr->_frequency = quint32(Configs::expconfig.paraconfig.frequency);
+    stiParamPtr->_periodCount = quint32(Configs::expconfig.paraconfig.periodCount);
+    stiParamPtr->_stimulusCount = quint32(Configs::expconfig.paraconfig.stimulusCount);
+    stiParamPtr->_stimulusInterval = quint32(Configs::expconfig.paraconfig.stimulusInterval);
+    stiParamPtr->_deriction = quint32(Configs::expconfig.paraconfig.deriction);
+
+}
+
+void MainWindow::sendStimulate(StimulusParams* params)
+{
     VCI_CAN_OBJ frameinfo;
     //
     frameinfo.TimeStamp = 0;
@@ -347,33 +366,8 @@ void MainWindow::sendStimulate(quint32 direction)
     //设置数据长度(已经写死)
     frameinfo.DataLen = 8;
 
-    //发送数据buffer
-    UCHAR sendData[8];
-    //第一个字节为占空比
-	quint32 dutyCycle_uint32 = Configs::expconfig.paraconfig.dutyCycle;
-    sendData[0] = UCHAR(dutyCycle_uint32);
-    //第2,3字节为频率
-    quint32 frequency_uint32 = Configs::expconfig.paraconfig.frequency;
-    //高八位存在第2个字节，低八位存在第3个字节
-    sendData[1] = UCHAR(frequency_uint32 >> 8);
-    sendData[2] = UCHAR(frequency_uint32);
-    //第4,5字节为周期个数
-    quint32 periodCount_uint32 = Configs::expconfig.paraconfig.periodCount;
-    //高八位存在第4个字节，低八位存在第5个字节
-    sendData[3] = UCHAR(periodCount_uint32 >> 8);
-    sendData[4] = UCHAR(periodCount_uint32);
-    //第6字节为两次刺激间的间隔时间
-    //目前没有间隔,设为0
-    quint32 stimulusInterval_uint32 = 0;
-    sendData[5] = UCHAR(stimulusInterval_uint32);
-    //第7个字节为刺激次数
-    quint32 stimulusCount_uint32 = Configs::expconfig.paraconfig.stimulusCount;
-    sendData[6] = UCHAR(stimulusCount_uint32);
-    //第8个字节为左右选择控制,0为左，1为右
-    sendData[7] = UCHAR(direction);
-
     //设置数据
-    memcpy(&frameinfo.Data, sendData, frameinfo.DataLen);
+    memcpy(&frameinfo.Data, params->sendDataTmp, frameinfo.DataLen);
     //此处的传输数据长度不明，需要测试
     if(VCI_Transmit(Configs::usbcanconfig.devType, Configs::usbcanconfig.indexNum, Configs::usbcanconfig.canNum, &frameinfo, 8))
     {
@@ -383,8 +377,8 @@ void MainWindow::sendStimulate(quint32 direction)
 		set_state_pic_green_manual();
 		changeStimulusButtonsState();
         //刺激时长(ms)=1000*((周期数/刺激频率)*刺激次数 + 刺激间隔*（刺激次数-1))
-        qint32 stimulusTime = qint32(((periodCount_uint32 / frequency_uint32
-                * stimulusCount_uint32) + (stimulusInterval_uint32 * (stimulusCount_uint32 - 1)))*1000);
+        qint32 stimulusTime = qint32(((params->_periodCount / params->_frequency
+                * params->_stimulusCount) + (params->_stimulusInterval * (params->_stimulusCount - 1)))*1000);
         QTimer::singleShot(stimulusTime, this, SLOT(set_state_pic_gray_manual()));
 		QTimer::singleShot(stimulusTime, this, SLOT(changeStimulateStatus()));
         //enable stimulate button 延迟时间还需要修改
@@ -414,12 +408,18 @@ void MainWindow::changeStimulateStatus()
 //left or right stimulate button click slot
 void MainWindow::on_leftStimulate_clicked()
 {
-    sendStimulate(0);
+    _stiParamPtr = new StimulusParams;
+    setStiParamFromPanel(_stiParamPtr, 0);
+    _stiParamPtr->paramsTrans();
+    sendStimulate(_stiParamPtr);
 }
 
 void MainWindow::on_rightStimulate_clicked()
 {
-    sendStimulate(1);
+    _stiParamPtr = new StimulusParams;
+    setStiParamFromPanel(_stiParamPtr, 1);
+    _stiParamPtr->paramsTrans();
+    sendStimulate(_stiParamPtr);
 }
 
 //Change Stimulate button enable state
@@ -458,14 +458,6 @@ void MainWindow::set_state_pic_green_manual()
     ui->statePic->setPixmap(_greenPixmap);
 }
 
-//获取刺激参数
-void MainWindow::get_stimulte_para()
-{
-    Configs::expconfig.paraconfig.dutyCycle = ui->dutyCycle_input->text().toInt();
-    Configs::expconfig.paraconfig.frequency = ui->frequency_input->text().toInt();
-    Configs::expconfig.paraconfig.periodCount = ui->periodCount_input->text().toInt();
-    Configs::expconfig.paraconfig.stimulusCount = ui->stimulusCount_input->text().toInt();
-}
 
 //菜单栏按钮槽函数
 //=========================setting Dialog=========================

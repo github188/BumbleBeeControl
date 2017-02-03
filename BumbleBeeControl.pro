@@ -35,7 +35,8 @@ HEADERS  += mainwindow.h \
         imagebuffer.h \
         imagepacket.h \
         opencvsink.h \
-        hdf5sink.h
+        hdf5sink.h \
+    stimulusparams.h
 
 FORMS    += \
         mainwindow.ui \

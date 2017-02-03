@@ -99,7 +99,9 @@ void Configs::write_configs()
 	setting.setValue("Frequency", expconfig.paraconfig.frequency);
 	setting.setValue("Period Count", expconfig.paraconfig.periodCount);
 	setting.setValue("Stimulus Count", expconfig.paraconfig.stimulusCount);
-	setting.endGroup();
+    setting.setValue("Stimulus Interval", expconfig.paraconfig.stimulusInterval);
+    setting.setValue("Deriction", expconfig.paraconfig.deriction);
+    setting.endGroup();
 
 }
 void Configs::read_configs()
@@ -151,6 +153,8 @@ void Configs::read_configs()
 		expconfig.paraconfig.frequency = setting.value("Frequency").toInt();
 		expconfig.paraconfig.periodCount = setting.value("Period Count").toInt();
 		expconfig.paraconfig.stimulusCount = setting.value("Stimulus Count").toInt();
+        expconfig.paraconfig.stimulusInterval= setting.value("Stimulus Interval").toInt();
+        expconfig.paraconfig.deriction= setting.value("Deriction").toInt();
 
         setting.endGroup();
 

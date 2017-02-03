@@ -64,6 +64,8 @@ public:
 		qint32 frequency;
 		qint32 periodCount; 
 		qint32 stimulusCount;
+        qint32 stimulusInterval;
+        qint32 deriction;
     };
     //experiment
     struct ExpConfig
