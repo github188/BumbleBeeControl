@@ -55,7 +55,7 @@ public:
 	ParamControlSetPtr getParamControl();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+	void closeEvent(QCloseEvent *event);
 
 public slots:
 	bool discoveryDevice();
@@ -81,7 +81,7 @@ private slots:
 
 	void on_heightSpinbox_valueChanged(int arg1);
 
-    void on_frameRateEnableCombobox_currentIndexChanged(int index);
+	void on_frameRateEnableCombobox_currentIndexChanged(int index);
 
 	void on_exposureAutoCombobox_currentTextChanged(const QString &arg1);
 
@@ -95,22 +95,22 @@ private slots:
 
 	void on_exposureTimeSpinBox_valueChanged(double arg1);
 
-    void updatePanelExpoTime();
+	void updatePanelExpoTime();
 
 private:
 	void getParam(ParamControlSetPtr paramControlSptr);
 	bool setParam(ParamControlSetPtr paramControlSptr);
 
-    void initPanelParam();
-    void readSetting();
+	void initPanelParam();
+	void readSetting();
 	bool isTimeToDisplay(unsigned long long);
-    void onGetFrame(const CFrame &frame);
+	void onGetFrame(const CFrame &frame);
 
 
 
 private:
 	Ui::GenlCamCap *ui;
-    QTimer updateExposureTimeTimer;
+	QTimer updateExposureTimeTimer;
 
 	TVector<ICameraPtr> _CameraPtrList;
 	bool				_Discoveried;
@@ -145,9 +145,9 @@ private:
 
 	//Acquisition Control Parameter
 	bool _frameRateEnable;
-    double _frameRate;
-    double _maxFrameRate;
-    double _minFrameRate;
+	double _frameRate;
+	double _maxFrameRate;
+	double _minFrameRate;
 	TVector<CString> _exposureAuto;
 	double _exposureTime;
 	double _maxExposureTime;

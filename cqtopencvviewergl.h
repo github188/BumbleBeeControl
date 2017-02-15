@@ -11,31 +11,31 @@
 
 class CQtOpenCVViewerGl : public QOpenGLWidget, protected QOpenGLFunctions_3_0
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit CQtOpenCVViewerGl(QWidget *parent = 0);
+	explicit CQtOpenCVViewerGl(QWidget *parent = 0);
 	~CQtOpenCVViewerGl();
 
 signals:
-    void    imageSizeChanged( int outW, int outH ); // Used to resize the image outside the widget
+	void    imageSizeChanged( int outW, int outH ); // Used to resize the image outside the widget
 
 public slots:
 	bool	showImage(const cv::Mat &frame);
 	void	clearScene();
 
 protected:
-    void 	initializeGL();							// OpenGL initialization
-    void 	paintGL();								// OpenGL Rendering
-    void 	resizeGL(int width, int height);        // Widget Resize Event
+	void 	initializeGL();							// OpenGL initialization
+	void 	paintGL();								// OpenGL Rendering
+	void 	resizeGL(int width, int height);        // Widget Resize Event
 
-    void    updateScene();
+	void    updateScene();
 	void	getGLErr();
 
 private:
 
 	//QOpenGLTexture *texture;
 
-    QColor  mBgColor;								// Background color
+	QColor  mBgColor;								// Background color
 
 	cv::Mat renderFrame;							//renderFrame mat file
 
@@ -44,15 +44,15 @@ private:
 
 	unsigned int mFrameWidth;
 	unsigned int mFrameHeight;
-    unsigned int mRenderWidth;
-    unsigned int mRenderHeight;
-    unsigned int mRenderPosX;
-    unsigned int mRenderPosY;
+	unsigned int mRenderWidth;
+	unsigned int mRenderHeight;
+	unsigned int mRenderPosX;
+	unsigned int mRenderPosY;
 	
 	GLuint texID;
 	GLint texWidth, texHeight;
 
-    void recalculatePosition();
+	void recalculatePosition();
 };
 
 #endif // CQTOPENCVVIEWERGL_H

@@ -36,7 +36,7 @@ public:
         //第7个字节为刺激次数
         sendDataTmp[6] = UCHAR(_stimulusCount);
         //第8个字节为左右选择控制,0为左，1为右
-        sendDataTmp[7] = UCHAR(_direction);
+        sendDataTmp[7] = UCHAR(_deriction);
     }
 
     quint32 _dutyCycle;
