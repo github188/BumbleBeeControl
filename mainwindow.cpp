@@ -377,7 +377,7 @@ void MainWindow::sendStimulate(StimulusParams* params)
 		set_state_pic_green_manual();
 		changeStimulusButtonsState();
         //刺激时长(ms)=1000*((周期数/刺激频率)*刺激次数 + 刺激间隔*（刺激次数-1))
-        qint32 stimulusTime = qint32(((params->_periodCount / params->_frequency
+        qint32 stimulusTime = qint32(((double(params->_periodCount) / double(params->_frequency)
                 * params->_stimulusCount) + (params->_stimulusInterval * (params->_stimulusCount - 1)))*1000);
         QTimer::singleShot(stimulusTime, this, SLOT(set_state_pic_gray_manual()));
 		QTimer::singleShot(stimulusTime, this, SLOT(changeStimulateStatus()));
