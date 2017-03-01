@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     recordBufferPtr = new ImageBuffer(1200, ImageBuffer::bufferType::recordBuffer ,false);
     displayBufferPtr = new ImageBuffer(1, ImageBuffer::bufferType::displayBuffer, false);
 
-	//实例化一个CanConfig对象并读取ini文件
+    //实例化一个CanConfig对象并读取ini文件
     _configPtr = new Configs;
     _configPtr->read_configs();
 
@@ -40,11 +40,15 @@ MainWindow::MainWindow(QWidget *parent)
     QValidator *periodCount_validator = new QIntValidator(0,100000, this);
     QValidator *stimulusCount_validator = new QIntValidator(0,1000,this);
 
-    ui->dutyCycle_input->setValidator(dutyCycle_validator);
-    ui->frequency_input->setValidator(frequency_validator);
-    ui->periodCount_input->setValidator(periodCount_validator);
-    ui->stimulusCount_input->setValidator(stimulusCount_validator);
+    ui->dutyCycle_input_left->setValidator(dutyCycle_validator);
+    ui->frequency_input_left->setValidator(frequency_validator);
+    ui->periodCount_input_left->setValidator(periodCount_validator);
+    ui->stimulusCount_input_left->setValidator(stimulusCount_validator);
 
+    ui->dutyCycle_input_right->setValidator(dutyCycle_validator);
+    ui->frequency_input_right->setValidator(frequency_validator);
+    ui->periodCount_input_right->setValidator(periodCount_validator);
+    ui->stimulusCount_input_right->setValidator(stimulusCount_validator);
     //读取窗口位置信息并还原
     readGeometrySetting();
 }
@@ -102,19 +106,19 @@ void MainWindow::init_status()
 void MainWindow::on_cameraConnButton_clicked()
 {
     _genlCamCapPtr = new GenlCamCap(NULL, displayBufferPtr, recordBufferPtr);
-	
-	if (_genlCamCapPtr->discoveryDevice())
-	{
-		_camNameKeyList = _genlCamCapPtr->getCamNameKeyList();
-	}
-
-	if (_camNameKeyList.size() == 0)
-	{
-		qDebug() << "Can not find camera";
-		return;
-	}
     
-	if(_genlCamCapPtr->connectToCamera(0))
+    if (_genlCamCapPtr->discoveryDevice())
+    {
+        _camNameKeyList = _genlCamCapPtr->getCamNameKeyList();
+    }
+
+    if (_camNameKeyList.size() == 0)
+    {
+        qDebug() << "Can not find camera";
+        return;
+    }
+    
+    if(_genlCamCapPtr->connectToCamera(0))
     {
         qDebug() << "Connect Success";
         Configs::status.s_camconnect = true;
@@ -196,7 +200,7 @@ void MainWindow::on_stopRecordButton_clicked()
     //_opencvSinkPtr->stop();
     //关闭定时器
     _recordInfoUpdaterTimer.stop();
-	changeRecordButtonsState();
+    changeRecordButtonsState();
     cleanRecordInfoPanel();
 }
 
@@ -204,16 +208,16 @@ void MainWindow::on_stopRecordButton_clicked()
 
 void MainWindow::changeRecordButtonsState()
 {
-	if (Configs::status.s_recording)
-	{
-		ui->stopRecordButton->setEnabled(true);
-		ui->startRecordButton->setEnabled(false);
-	}
-	else
-	{
-		ui->stopRecordButton->setEnabled(false);
-		ui->startRecordButton->setEnabled(true);
-	}
+    if (Configs::status.s_recording)
+    {
+        ui->stopRecordButton->setEnabled(true);
+        ui->startRecordButton->setEnabled(false);
+    }
+    else
+    {
+        ui->stopRecordButton->setEnabled(false);
+        ui->startRecordButton->setEnabled(true);
+    }
 }
 
 void MainWindow::updateRecordInfoPanel()
@@ -306,7 +310,7 @@ void MainWindow::on_openCan_clicked()
         {
             QMessageBox::information(this, "Info", QString::fromLocal8Bit("复位成功"));
             ui->openCan->setText(QString::fromLocal8Bit("打开CAN"));
-			changeStimulusButtonsState();
+            changeStimulusButtonsState();
             Configs::status.s_canstart = false;
         }
     }
@@ -321,7 +325,7 @@ void MainWindow::on_openCan_clicked()
         {
             Configs::status.s_canstart = true;
             ui->openCan->setText(QString::fromLocal8Bit("重置CAN"));
-			changeStimulusButtonsState();
+            changeStimulusButtonsState();
         }
     }
 }
@@ -330,10 +334,21 @@ void MainWindow::setStiParamFromPanel(StimulusParams *stiParamPtr, qint32 derict
 {
 
     //从面板获取设置参数
-    Configs::expconfig.paraconfig.dutyCycle = ui->dutyCycle_input->text().toInt();
-    Configs::expconfig.paraconfig.frequency = ui->frequency_input->text().toInt();
-    Configs::expconfig.paraconfig.periodCount = ui->periodCount_input->text().toInt();
-    Configs::expconfig.paraconfig.stimulusCount = ui->stimulusCount_input->text().toInt();
+    if(deriction == 0)
+    {
+        Configs::expconfig.paraconfig.dutyCycle = ui->dutyCycle_input_left->text().toInt();
+        Configs::expconfig.paraconfig.frequency = ui->frequency_input_left->text().toInt();
+        Configs::expconfig.paraconfig.periodCount = ui->periodCount_input_left->text().toInt();
+        Configs::expconfig.paraconfig.stimulusCount = ui->stimulusCount_input_left->text().toInt();
+    }
+    else
+    {
+        Configs::expconfig.paraconfig.dutyCycle = ui->dutyCycle_input_right->text().toInt();
+        Configs::expconfig.paraconfig.frequency = ui->frequency_input_right->text().toInt();
+        Configs::expconfig.paraconfig.periodCount = ui->periodCount_input_right->text().toInt();
+        Configs::expconfig.paraconfig.stimulusCount = ui->stimulusCount_input_right->text().toInt();
+    }
+
     //刺激间隔暂时无设置，默认为0
     Configs::expconfig.paraconfig.stimulusInterval = 0;
     Configs::expconfig.paraconfig.deriction = deriction;
@@ -371,16 +386,16 @@ void MainWindow::sendStimulate(StimulusParams* params)
     //此处的传输数据长度不明，需要测试
     if(VCI_Transmit(Configs::usbcanconfig.devType, Configs::usbcanconfig.indexNum, Configs::usbcanconfig.canNum, &frameinfo, 8))
     {
-		
+        
         //以刺激时间长度来改变状态图片颜色以及刺激状态
-		changeStimulateStatus();
-		set_state_pic_green_manual();
-		changeStimulusButtonsState();
+        changeStimulateStatus();
+        set_state_pic_green_manual();
+        changeStimulusButtonsState();
         //刺激时长(ms)=1000*((周期数/刺激频率)*刺激次数 + 刺激间隔*（刺激次数-1))
         qint32 stimulusTime = qint32(((double(params->_periodCount) / double(params->_frequency)
                 * params->_stimulusCount) + (params->_stimulusInterval * (params->_stimulusCount - 1)))*1000);
         QTimer::singleShot(stimulusTime, this, SLOT(set_state_pic_gray_manual()));
-		QTimer::singleShot(stimulusTime, this, SLOT(changeStimulateStatus()));
+        QTimer::singleShot(stimulusTime, this, SLOT(changeStimulateStatus()));
         //enable stimulate button 延迟时间还需要修改
         QTimer::singleShot(1.5 * stimulusTime, this, SLOT(changeStimulusButtonsState()));
         //显示时间为1s
@@ -395,14 +410,14 @@ void MainWindow::sendStimulate(StimulusParams* params)
 //改变刺激状态
 void MainWindow::changeStimulateStatus()
 {
-	if (Configs::status.s_stimulus)
-	{
-		Configs::status.s_stimulus = false;
-	}
-	else
-	{
-		Configs::status.s_stimulus = true;
-	}
+    if (Configs::status.s_stimulus)
+    {
+        Configs::status.s_stimulus = false;
+    }
+    else
+    {
+        Configs::status.s_stimulus = true;
+    }
 }
 //选择左右刺激
 //left or right stimulate button click slot

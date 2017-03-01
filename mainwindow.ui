@@ -498,112 +498,234 @@
                 </layout>
                </item>
                <item row="1" column="1" colspan="2">
-                <layout class="QVBoxLayout" name="parameter_input">
-                 <item>
-                  <widget class="QLineEdit" name="dutyCycle_input">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>(0-99)%</string>
-                   </property>
-                   <property name="statusTip">
-                    <string>参数范围:(0-99)%</string>
-                   </property>
-                   <property name="whatsThis">
-                    <string/>
-                   </property>
-                   <property name="text">
-                    <string>40</string>
-                   </property>
-                   <property name="cursorMoveStyle">
-                    <enum>Qt::LogicalMoveStyle</enum>
-                   </property>
-                  </widget>
+                <layout class="QGridLayout" name="parameter_input">
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_frequency">
+                   <item>
+                    <widget class="QLineEdit" name="frequency_input_left">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-9999)Hz</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-9999)Hz</string>
+                     </property>
+                     <property name="text">
+                      <string>100</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="frequency_input_right">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-9999)Hz</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-9999)Hz</string>
+                     </property>
+                     <property name="text">
+                      <string>100</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
-                 <item>
-                  <widget class="QLineEdit" name="frequency_input">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>(0-9999)Hz</string>
-                   </property>
-                   <property name="statusTip">
-                    <string>参数范围:(0-9999)Hz</string>
-                   </property>
-                   <property name="text">
-                    <string>100</string>
-                   </property>
-                  </widget>
+                 <item row="2" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_periodcount">
+                   <item>
+                    <widget class="QLineEdit" name="periodCount_input_left">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(1-100000)</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(1-100000)个</string>
+                     </property>
+                     <property name="text">
+                      <string>100</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="periodCount_input_right">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(1-100000)</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(1-100000)个</string>
+                     </property>
+                     <property name="text">
+                      <string>100</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
-                 <item>
-                  <widget class="QLineEdit" name="periodCount_input">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>(1-100000)</string>
-                   </property>
-                   <property name="statusTip">
-                    <string>参数范围:(1-100000)个</string>
-                   </property>
-                   <property name="text">
-                    <string>100</string>
-                   </property>
-                  </widget>
+                 <item row="3" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_stimuluscount">
+                   <item>
+                    <widget class="QLineEdit" name="stimulusCount_input_left">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-1000)个</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-1000)个</string>
+                     </property>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="stimulusCount_input_right">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-1000)个</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-1000)个</string>
+                     </property>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
-                 <item>
-                  <widget class="QLineEdit" name="stimulusCount_input">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>(0-1000)个</string>
-                   </property>
-                   <property name="statusTip">
-                    <string>参数范围:(0-1000)个</string>
-                   </property>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                  </widget>
+                 <item row="0" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_dutycycle">
+                   <item>
+                    <widget class="QLineEdit" name="dutyCycle_input_left">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-99)%</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-99)%</string>
+                     </property>
+                     <property name="whatsThis">
+                      <string/>
+                     </property>
+                     <property name="text">
+                      <string>40</string>
+                     </property>
+                     <property name="cursorMoveStyle">
+                      <enum>Qt::LogicalMoveStyle</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="dutyCycle_input_right">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>(0-99)%</string>
+                     </property>
+                     <property name="statusTip">
+                      <string>参数范围:(0-99)%</string>
+                     </property>
+                     <property name="whatsThis">
+                      <string/>
+                     </property>
+                     <property name="text">
+                      <string>40</string>
+                     </property>
+                     <property name="cursorMoveStyle">
+                      <enum>Qt::LogicalMoveStyle</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </item>
@@ -652,7 +774,7 @@
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="state_pic.qrc">:/gray.png</pixmap>
+                 <pixmap resource="../test project/stimulustest/state_pic.qrc">:/gray.png</pixmap>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -734,7 +856,7 @@
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="state_pic.qrc">:/gray.png</pixmap>
+                 <pixmap resource="../test project/stimulustest/state_pic.qrc">:/gray.png</pixmap>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -871,8 +993,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="state_pic.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
