@@ -100,7 +100,7 @@ void Configs::write_configs()
 	setting.setValue("Period Count", expconfig.paraconfig.periodCount);
 	setting.setValue("Stimulus Count", expconfig.paraconfig.stimulusCount);
     setting.setValue("Stimulus Interval", expconfig.paraconfig.stimulusInterval);
-    setting.setValue("Deriction", expconfig.paraconfig.deriction);
+    setting.setValue("Deriction", expconfig.paraconfig.direction);
     setting.endGroup();
 
 }
@@ -153,8 +153,8 @@ void Configs::read_configs()
 		expconfig.paraconfig.frequency = setting.value("Frequency").toInt();
 		expconfig.paraconfig.periodCount = setting.value("Period Count").toInt();
 		expconfig.paraconfig.stimulusCount = setting.value("Stimulus Count").toInt();
-        expconfig.paraconfig.stimulusInterval= setting.value("Stimulus Interval").toInt();
-        expconfig.paraconfig.deriction= setting.value("Deriction").toInt();
+        expconfig.paraconfig.stimulusInterval = setting.value("Stimulus Interval").toInt();
+        expconfig.paraconfig.direction= setting.value("Deriction").toInt();
 
         setting.endGroup();
 
@@ -166,6 +166,6 @@ Configs::Status Configs::status = {false, false, false, false, false, false};
 //CAN configurations
 Configs::UsbCanConfig Configs::usbcanconfig;
 //Camera Configurations
-Configs::CamConfig Configs::camconfig = {-1, -1, -1, -1};
+Configs::CamConfig Configs::camconfig = {0, 0, 0, 0};
 //Experiment Configurations
 Configs::ExpConfig Configs::expconfig;

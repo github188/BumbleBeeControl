@@ -122,13 +122,13 @@ void HDF5Sink::release()
 	//timestamp pointer
 	double *tsPtr;
 	//write stimulate parameters
-	cv::Mat intStiPara = cv::Mat(1, _stiParams.size() * 4, CV_32SC1);
+    cv::Mat intStiPara = cv::Mat(1, _stiParams.size() * 5, CV_32SC1);
 	//cv::MatIterator_<int> sP, spEnd;
 	//stimulus parameter pointer
 	int *spPtr;
 	if (_timeStamps.size() == _stiParams.size())
 	{
-		for (uint i = 0,j = 0; i < _timeStamps.size(); i++,j+=4)
+        for (int i = 0,j = 0; i < _timeStamps.size(); i++,j+=5)
 		{
 			//write timestamp from qvector to mat
 			tsPtr = doubleT.ptr<double>(0);
@@ -137,9 +137,10 @@ void HDF5Sink::release()
 			//write stimulus parameters from qvector to mat
 			spPtr = intStiPara.ptr<int>(0);
 			spPtr[j] = _stiParams[i].dutyCycle;
-			spPtr[j+1] = _stiParams[i].frequency;
-			spPtr[j+2] = _stiParams[i].periodCount;
-			spPtr[j+3] = _stiParams[i].stimulusCount;
+            spPtr[j + 1] = _stiParams[i].frequency;
+            spPtr[j + 2] = _stiParams[i].periodCount;
+            spPtr[j + 3] = _stiParams[i].stimulusCount;
+            spPtr[j + 4] = _stiParams[i].direction;
 		}
 	}
 	else
@@ -160,6 +161,7 @@ void HDF5Sink::release()
 			spPtr[j + 1] = _stiParams[i].frequency;
 			spPtr[j + 2] = _stiParams[i].periodCount;
 			spPtr[j + 3] = _stiParams[i].stimulusCount;
+            spPtr[j + 4] = _stiParams[i].direction;
 		}
 	}
 	//写入timestamp

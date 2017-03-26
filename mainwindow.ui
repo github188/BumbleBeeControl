@@ -774,7 +774,7 @@
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="../test project/stimulustest/state_pic.qrc">:/gray.png</pixmap>
+                 <pixmap resource="state_pic.qrc">:/gray.png</pixmap>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -856,7 +856,7 @@
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="../test project/stimulustest/state_pic.qrc">:/gray.png</pixmap>
+                 <pixmap resource="state_pic.qrc">:/gray.png</pixmap>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -980,7 +980,7 @@
   </action>
   <action name="actionHDF5Convertor">
    <property name="text">
-    <string>HDF5Convertor</string>
+    <string>HDF5转换器</string>
    </property>
   </action>
  </widget>
@@ -993,6 +993,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="state_pic.qrc"/>
+ </resources>
  <connections/>
 </ui>

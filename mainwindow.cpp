@@ -351,7 +351,7 @@ void MainWindow::setStiParamFromPanel(StimulusParams *stiParamPtr, qint32 derict
 
     //刺激间隔暂时无设置，默认为0
     Configs::expconfig.paraconfig.stimulusInterval = 0;
-    Configs::expconfig.paraconfig.deriction = deriction;
+    Configs::expconfig.paraconfig.direction = deriction;
 
     //写入参数包中
     stiParamPtr->_dutyCycle = quint32(Configs::expconfig.paraconfig.dutyCycle);
@@ -359,7 +359,7 @@ void MainWindow::setStiParamFromPanel(StimulusParams *stiParamPtr, qint32 derict
     stiParamPtr->_periodCount = quint32(Configs::expconfig.paraconfig.periodCount);
     stiParamPtr->_stimulusCount = quint32(Configs::expconfig.paraconfig.stimulusCount);
     stiParamPtr->_stimulusInterval = quint32(Configs::expconfig.paraconfig.stimulusInterval);
-    stiParamPtr->_deriction = quint32(Configs::expconfig.paraconfig.deriction);
+    stiParamPtr->_deriction = quint32(Configs::expconfig.paraconfig.direction);
 
 }
 

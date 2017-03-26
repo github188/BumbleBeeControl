@@ -12,7 +12,7 @@ public:
 	ImagePacket()
 		: image(cv::Mat())
 		, seqNumber(0)
-		, stimulusPara({0,0,0,0})
+        , stimulusPara({0,0,0,0,0,0})
 		//pixFormat("")
 	{
 	}
