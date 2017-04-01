@@ -254,7 +254,7 @@ void HDF5Sink::recordThreadProc(CThreadLite&)
 	{
 		_tmpImagePacket = _bufferPtr->getFrameToWrite();
 		_timeStamps.push_back(_tmpImagePacket.timeStamp);
-		_stiParams.push_back(_tmpImagePacket.stimulusPara);
+		_stiParams.push_back(_tmpImagePacket.stimulusParam);
 		writeToDisk(_tmpImagePacket);
 		_frameID++;
 	}

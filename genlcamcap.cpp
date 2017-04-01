@@ -312,18 +312,20 @@ void GenlCamCap::onGetFrame(const CFrame &frame)
 	//写入刺激参数
 	if (Configs::status.s_stimulus)
 	{
-		_tmpPacket.stimulusPara.dutyCycle = Configs::expconfig.paraconfig.dutyCycle;
-		_tmpPacket.stimulusPara.frequency = Configs::expconfig.paraconfig.frequency;
-		_tmpPacket.stimulusPara.periodCount = Configs::expconfig.paraconfig.periodCount;
-		_tmpPacket.stimulusPara.stimulusCount = Configs::expconfig.paraconfig.stimulusCount;
+        _tmpPacket.stimulusParam.dutyCycle = Configs::expconfig.paraconfig.dutyCycle;
+        _tmpPacket.stimulusParam.frequency = Configs::expconfig.paraconfig.frequency;
+        _tmpPacket.stimulusParam.periodCount = Configs::expconfig.paraconfig.periodCount;
+        _tmpPacket.stimulusParam.stimulusCount = Configs::expconfig.paraconfig.stimulusCount;
+        _tmpPacket.stimulusParam.direction = Configs::expconfig.paraconfig.direction;
 	}
 	else
 	{
 		//未刺激是参数为0
-		_tmpPacket.stimulusPara.dutyCycle = 0;
-		_tmpPacket.stimulusPara.frequency = 0;
-		_tmpPacket.stimulusPara.periodCount = 0;
-		_tmpPacket.stimulusPara.stimulusCount = 0;
+        _tmpPacket.stimulusParam.dutyCycle = 0;
+        _tmpPacket.stimulusParam.frequency = 0;
+        _tmpPacket.stimulusParam.periodCount = 0;
+        _tmpPacket.stimulusParam.stimulusCount = 0;
+        _tmpPacket.stimulusParam.direction = 0;
 	}
 	//写入图片和时标
 	_tmpPacket.image = cv::Mat(frame.getImageHeight(), frame.getImageWidth(), CV_8UC1, (unsigned char*)frame.getImage());

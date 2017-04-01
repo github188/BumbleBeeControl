@@ -12,7 +12,7 @@ public:
 	ImagePacket()
 		: image(cv::Mat())
 		, seqNumber(0)
-        , stimulusPara({0,0,0,0,0,0})
+        , stimulusParam({0,0,0,0,0,0})
 		//pixFormat("")
 	{
 	}
@@ -22,7 +22,7 @@ public:
 		image = src.image.clone();
 		seqNumber = src.seqNumber;
 		timeStamp = src.timeStamp;
-		stimulusPara = src.stimulusPara;
+        stimulusParam = src.stimulusParam;
 	}
 
 	~ImagePacket()
@@ -34,6 +34,6 @@ public:
     quint32 seqNumber;
 	//timestamp double is msec
     double timeStamp;
-	Configs::ParaConfig stimulusPara;
+    Configs::ParaConfig stimulusParam;
 };
 Q_DECLARE_METATYPE(ImagePacket);

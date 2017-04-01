@@ -22,6 +22,7 @@ bool OpenCVSink::init_VideoWriter()
 		return false;
 	}
 
+    //TODO 处理_outputPath中有中文字符的
 	_outputPath = _baseDir + "/" + _bubbleBeeID + "/" + _recordMoment.date().toString("yyyyMMdd");
 
 	if (!QDir(_outputPath).exists())
