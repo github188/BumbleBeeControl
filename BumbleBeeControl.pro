@@ -55,22 +55,21 @@ INCLUDEPATH += $$PWD/videoinput/genlcam/Include
 DEPENDPATH += $$PWD/videoinput/genlcam/Include
 
 #Opencv lib path
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../dev/opencv/opencv3.1/build/x64/vc14/lib/ -lopencv_world310
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../dev/opencv/opencv3.1/build/x64/vc14/lib/ -lopencv_world310d
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../dev/opencv/opencv3.2/build/x64/vc14/lib/ -lopencv_world320
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../dev/opencv/opencv3.2/build/x64/vc14/lib/ -lopencv_world320d
 
-INCLUDEPATH += $$PWD/../../../../dev/opencv/opencv3.1/build/include
-DEPENDPATH += $$PWD/../../../../dev/opencv/opencv3.1/build/include
-
+INCLUDEPATH += $$PWD/../../../dev/opencv/opencv3.2/build/include
+DEPENDPATH += $$PWD/../../../dev/opencv/opencv3.2/build/include
 #hdf5 lib path
-win32: LIBS += -L$$PWD/../../../../dev/hdf5/1.10.0-patch1/lib/ -lhdf5 \
+win32: LIBS += -L$$PWD/../../../dev/hdf5/1.10.0-patch1/lib/ -lhdf5 \
                                                                -lhdf5_cpp \
                                                                -lszip \
                                                                -lzlib
-INCLUDEPATH += $$PWD/../../../../dev/hdf5/1.10.0-patch1/include
-DEPENDPATH += $$PWD/../../../../dev/hdf5/1.10.0-patch1/include
+INCLUDEPATH += $$PWD/../../../dev/hdf5/1.10.0-patch1/include
+DEPENDPATH += $$PWD/../../../dev/hdf5/1.10.0-patch1/include
 
 #boost lib path
-INCLUDEPATH += $$PWD/../../../../dev/boost/boost_1_62_0
+INCLUDEPATH += $$PWD/../../../dev/boost/boost_1_62_0
 
 #UsbCan lib path
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lControlCAN
@@ -78,3 +77,5 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lControlCAN
 
 INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
+
+

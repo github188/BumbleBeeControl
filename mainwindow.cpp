@@ -58,17 +58,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//重写closeEvent事件，保存窗口位置大小，以及在相机未断开的情况下关闭控制窗口
+//重写closeEvent事件，保存窗口位置大小，在相机未断开的情况下关闭控制窗口,在还在录制过程中阻止关闭窗口
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(Configs::status.s_camconnect)
     {
         _genlCamCapPtr->close();
     }
-    QSettings settings("CSDL", "BumbelBeeControl");
-    settings.setValue("BumbelBeeControl/geometry", saveGeometry());
-    settings.setValue("BumbelBeeControl/windowState", saveState());
-    QMainWindow::closeEvent(event);
+    if(Configs::status.s_recording)
+    {
+        QMessageBox::warning(this, "Warning", QString::fromLocal8Bit("视频写入还未完成，请勿关闭！"));
+    }
+    else
+    {
+        QSettings settings("CSDL", "BumbelBeeControl");
+        settings.setValue("BumbelBeeControl/geometry", saveGeometry());
+        settings.setValue("BumbelBeeControl/windowState", saveState());
+        QMainWindow::closeEvent(event);
+    }
 }
 
 //读取上次关闭时窗口大小位置参数
@@ -180,7 +187,7 @@ void MainWindow::on_startRecordButton_clicked()
     _HDF5SinkPtr = new HDF5Sink(NULL, recordBufferPtr, cv::Size(_displayImage.cols, _displayImage.rows));
     //_opencvSinkPtr = new OpenCVSink(NULL, recordBufferPtr, cv::Size(_displayImage.cols, _displayImage.rows));
     //_opencvSinkPtr->start();
-    _HDF5SinkPtr->start();
+    //_HDF5SinkPtr->start();
     //设置定时器并绑定
     _recordInfoUpdaterTimer.setInterval(_displayInterval);
     connect(&_recordInfoUpdaterTimer, SIGNAL(timeout()), this, SLOT(updateRecordInfoPanel()));
@@ -190,7 +197,18 @@ void MainWindow::on_startRecordButton_clicked()
     _recordInfoUpdaterTimer.start();
     _recordLastUpdateTime = QDateTime::currentDateTime();
 
+    ///test func
+    _h5SinkThreadPtr = new QThread();
 
+    connect(_h5SinkThreadPtr, SIGNAL(started()), _HDF5SinkPtr, SLOT(start()));
+    connect(_HDF5SinkPtr, SIGNAL(finished()), _h5SinkThreadPtr, SLOT(quit()));
+    connect(_HDF5SinkPtr, SIGNAL(finished()), this, SLOT(changeRecordButtonsState()));
+    connect(_h5SinkThreadPtr, SIGNAL(finished()), _h5SinkThreadPtr, SLOT(deleteLater()));
+
+    _HDF5SinkPtr->moveToThread(_h5SinkThreadPtr);
+
+    _h5SinkThreadPtr->start();
+    ///test
     //ui->disconnectButton->setEnabled(false);
 }
 
@@ -200,11 +218,18 @@ void MainWindow::on_stopRecordButton_clicked()
     //_opencvSinkPtr->stop();
     //关闭定时器
     _recordInfoUpdaterTimer.stop();
-    changeRecordButtonsState();
+
     cleanRecordInfoPanel();
 }
 
-
+void MainWindow::checkRecordThread()
+{
+    if(!Configs::status.s_recording)
+    {
+        _checkRecordThreadTimer.stop();
+        changeRecordButtonsState();
+    }
+}
 
 void MainWindow::changeRecordButtonsState()
 {

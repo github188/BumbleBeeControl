@@ -19,11 +19,14 @@ class cvtH5Dialog : public QDialog
 public:
     explicit cvtH5Dialog(QWidget *parent = 0);
     ~cvtH5Dialog();
+    
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void setProgressBarRange(qulonglong max);
     void updateProgressBar(qulonglong value);
-	void reset();
+    void reset();
 
     void on_h5FilePathToolButton_clicked();
 
@@ -33,13 +36,18 @@ private slots:
 
     void on_imageTypeComboBox_currentIndexChanged(const QString &arg1);
 
+    void on_imgRadioButton_clicked();
+
+    void on_videoRadioButton_clicked();
+
 private:
     QString _datasetPath;
     QString _outputDir;
     QString _outputFileName;
     QString _fileType;
+    QString _type;
 
-    HDF52Img *_converterPtr;
+    HDF5convertor *_converterPtr;
     QThread *_cvtThreadPtr;
 
     Ui::cvtH5Dialog *ui;

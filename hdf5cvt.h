@@ -4,6 +4,7 @@
 
 #include <H5Cpp.h>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
 #include <QInputDialog>
 #include <QFileInfo>
 #include <QFileDialog>
@@ -13,11 +14,11 @@
 
 using namespace H5;
 
-class HDF52Img : public QObject
+class HDF5convertor : public QObject
 {
     Q_OBJECT
 public:
-    explicit HDF52Img(QObject *parent = 0, QString datasetpath = "", QString outputdir = "", QString filetype = "");
+    explicit HDF5convertor(QObject *parent = 0, QString datasetpath = "", QString outputdir = "",QString type = "", QString filetype = "");
 
 signals:
     void totalFrameNum(qulonglong count);
@@ -25,7 +26,7 @@ signals:
     void finished();
 
 public slots:
-    bool cvtH52Img();
+    bool cvtH5();
 
 private slots:
     bool convertFile();
@@ -36,7 +37,8 @@ private:
     QString _dataset_name;
     QString _storeDir;
     QString _filetype;
-    QString _outputFileName;
+    QString _type;
+    QString _outputFilePath;
     DataSpace _dataSpace;
     QString _dataFormat;
     DataSet _dataset;
@@ -45,6 +47,21 @@ private:
     hsize_t _dims[3];
 
     cv::Mat _bufferFrame;
+    std::vector<double> timestamps;
+    struct ParaConfig
+    {
+        qint32 dutyCycle;
+        qint32 frequency;
+        qint32 periodCount;
+        qint32 stimulusCount;
+        qint32 stimulusInterval;
+        qint32 direction;
+    };
+    std::vector<ParaConfig> stiParams;
+    cv::VideoWriter *_writerPtr;
+
+    int _codec;		//视频编码模式
+    double _fps;	//视频播放fps
 };
 
 #endif // HDF52IMG_H
