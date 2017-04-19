@@ -136,10 +136,10 @@
        </layout>
       </item>
       <item row="2" column="0">
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="outputTypeGp">
         <layout class="QHBoxLayout" name="optionLayout">
          <item>
-          <widget class="QGroupBox" name="radioGroupBox">
+          <widget class="QGroupBox" name="typeRadioGB">
            <layout class="QHBoxLayout" name="outputSelect">
             <item>
              <widget class="QRadioButton" name="imgRadioButton">
@@ -186,7 +186,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_2">
+          <widget class="QGroupBox" name="imageTypeGB">
            <layout class="QHBoxLayout" name="imageType">
             <item>
              <widget class="QLabel" name="imageTypeLabel">
