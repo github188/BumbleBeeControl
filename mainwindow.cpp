@@ -17,8 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //设置显示时间间隔并连接QTimer与更新函数
     _displayTimer.setInterval(_displayInterval);
+	_recordInfoUpdaterTimer.setInterval(500);
     connect(&_displayTimer, SIGNAL(timeout()), this, SLOT(updateFrame()));
-
+	connect(&_recordInfoUpdaterTimer, SIGNAL(timeout()), this, SLOT(updateRecordInfoPanel()));
     //初始化Buffers
     recordBufferPtr = new ImageBuffer(1200, ImageBuffer::bufferType::recordBuffer ,false);
     displayBufferPtr = new ImageBuffer(1, ImageBuffer::bufferType::displayBuffer, false);
@@ -68,13 +69,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if(Configs::status.s_recording)
     {
         QMessageBox::warning(this, "Warning", QString::fromLocal8Bit("视频写入还未完成，请勿关闭！"));
+		event->ignore();
     }
     else
     {
         QSettings settings("CSDL", "BumbelBeeControl");
         settings.setValue("BumbelBeeControl/geometry", saveGeometry());
         settings.setValue("BumbelBeeControl/windowState", saveState());
-        QMainWindow::closeEvent(event);
+		event->accept();
     }
 }
 
@@ -189,13 +191,12 @@ void MainWindow::on_startRecordButton_clicked()
     //_opencvSinkPtr->start();
     //_HDF5SinkPtr->start();
     //设置定时器并绑定
-    _recordInfoUpdaterTimer.setInterval(_displayInterval);
-    connect(&_recordInfoUpdaterTimer, SIGNAL(timeout()), this, SLOT(updateRecordInfoPanel()));
+    
+
     //改变状态，界面按钮并开启定时器
-    Configs::status.s_recording = true;
-    changeRecordButtonsState();
-    _recordInfoUpdaterTimer.start();
-    _recordLastUpdateTime = QDateTime::currentDateTime();
+    //Configs::status.s_recording = true;
+	//_recordInfoUpdaterTimer.start();
+    
 
     ///test func
     _h5SinkThreadPtr = new QThread();
@@ -208,6 +209,7 @@ void MainWindow::on_startRecordButton_clicked()
     _HDF5SinkPtr->moveToThread(_h5SinkThreadPtr);
 
     _h5SinkThreadPtr->start();
+	_recordInfoUpdaterTimer.start();
     ///test
     //ui->disconnectButton->setEnabled(false);
 }
@@ -220,15 +222,6 @@ void MainWindow::on_stopRecordButton_clicked()
     _recordInfoUpdaterTimer.stop();
 
     cleanRecordInfoPanel();
-}
-
-void MainWindow::checkRecordThread()
-{
-    if(!Configs::status.s_recording)
-    {
-        _checkRecordThreadTimer.stop();
-        changeRecordButtonsState();
-    }
 }
 
 void MainWindow::changeRecordButtonsState()
@@ -247,20 +240,23 @@ void MainWindow::changeRecordButtonsState()
 
 void MainWindow::updateRecordInfoPanel()
 {
-    if(ui->recordBeginTime_value->text() == "" || ui->recordDuration_value->text() == ""
-            || ui->bumblebeeId_value->text() == "" || ui->trainTrial_value->text() == "")
+    if(!Configs::status.s_recording)
     {
-        ui->recordBeginTime_value->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh::mm::ss"));
-        ui->recordDuration_value->setText(QTime(0,0,0,0).toString("hh:mm:ss"));
+        ui->recordBeginTime_value->setText(QDateTime::currentDateTime().toString("yy-MM-dd hh:mm:ss"));
+        ui->recordDuration_value->setText(QTime(0,0,0,0).toString("mm:ss"));
         ui->bumblebeeId_value->setText(Configs::expconfig.bumbleId);
         ui->trainTrial_value->setText(QString::number(Configs::expconfig.trainTrial));
+		_recordLastUpdateTime = QDateTime::currentMSecsSinceEpoch();
+        Configs::status.s_recording = true;
+        changeRecordButtonsState();
     }
     else
     {
-        QDateTime recordDuration;
-        recordDuration.fromMSecsSinceEpoch(QDateTime::currentMSecsSinceEpoch() - _recordLastUpdateTime.toMSecsSinceEpoch());
-        _recordLastUpdateTime = QDateTime::currentDateTime();
-        ui->recordDuration_value->setText(recordDuration.time().toString("hh:mm:ss"));
+		//QDateTime recordDuration;
+		//qDebug() << recordDuration.fromMSecsSinceEpoch(QDateTime::currentMSecsSinceEpoch() - _recordLastUpdateTime).time().toString("hh:mm:ss");
+		QString during = QDateTime::fromMSecsSinceEpoch(QDateTime::currentMSecsSinceEpoch() - _recordLastUpdateTime, QTimeZone::systemTimeZone()).time().toString("mm:ss");
+		//_recordLastUpdateTime = QDateTime::currentDateTime();
+        ui->recordDuration_value->setText(during);
     }
 }
 

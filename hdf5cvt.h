@@ -10,6 +10,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QDebug>
+#include <QDateTime>
 #include <QObject>
 
 using namespace H5;
@@ -39,6 +40,7 @@ private:
     QString _filetype;
     QString _type;
     QString _outputFilePath;
+    QDateTime _currentTime;
     DataSpace _dataSpace;
     QString _dataFormat;
     DataSet _dataset;

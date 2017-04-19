@@ -42,7 +42,7 @@ bool HDF5Sink::init_H5File()
     }
 
     _frameID = 0;
-    _filename = _outputPath + "/" + _recordMoment.toString("dd.MM.yyyy_hh-mm-ss.zzz") + ".h5";
+    _filename = _outputPath + "/" + _recordMoment.toString("yyyy.MM.dd_hh-mm-ss") + ".h5";
     _timeStamps.clear();
 
 
@@ -184,7 +184,6 @@ void HDF5Sink::release()
     delete h5_hFilePtr;
     ///_recordThr.destroyThread();
     qDebug() << "H5File Writer release";
-    Configs::status.s_recording = false;
     emit(finished());
 }
 void HDF5Sink::start()
@@ -205,7 +204,7 @@ void HDF5Sink::start()
     */
     qDebug() << "init_H5File succeed";
     _isRunning = true;
-    Configs::status.s_recording = true;
+	//Configs::status.s_recording = true;
     recordProc();
     return;
 }
@@ -220,6 +219,7 @@ bool HDF5Sink::isRecording()
 void HDF5Sink::stop()
 {
     _isRunning = false;
+	Configs::status.s_recording = false;
 }
 void HDF5Sink::writeToDisk(ImagePacket& ImagePacket)
 {

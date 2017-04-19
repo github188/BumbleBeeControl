@@ -7,6 +7,7 @@ HDF5convertor::HDF5convertor(QObject *parent, QString datasetpath, QString outpu
 	, _filetype(filetype)
 	, _type(type)
 {
+	_currentTime = QDateTime::currentDateTime();
 
 }
 
@@ -265,12 +266,13 @@ bool HDF5convertor::convertFile()
 		QString _outputFileName = _dataset_name.mid(0, _dataset_name.lastIndexOf("."));
 		_outputFileName = _outputFileName.mid(_outputFileName.lastIndexOf("/") + 1);
 
-		_outputFilePath = _storeDir +  "/" + _outputFileName + "." + _filetype;
+		_outputFilePath = _storeDir +  "/" + _outputFileName + " processedTime " 
+			+ _currentTime.toString("yyyy.MM.dd_hh-mm") + "." + _filetype;
 
 		//_codec = CV_FOURCC('X', '2', '6', '4');
 		//_codec = CV_FOURCC('D', 'I', 'V', 'X');
-		_codec = CV_FOURCC('X', 'V', 'I', 'D');
-		//_codec = CV_FOURCC('M', 'J', 'P', 'G');
+		//_codec = CV_FOURCC('X', 'V', 'I', 'D');
+		_codec = CV_FOURCC('M', 'J', 'P', 'G');
 		//_codec = CV_FOURCC('P', 'I', 'M', '1');
 
 		_fps = 20.0;
@@ -317,6 +319,7 @@ bool HDF5convertor::convertFile()
 
 			emit(finishedFrameCount(frameIdx + 1));
 		}
+		_writerPtr->release();
 	}
 	else if (_type == "image")
 	{
@@ -360,11 +363,8 @@ bool HDF5convertor::convertFile()
 	else
 	{
 		qDebug() << "The type is invalid.";
-		_writerPtr->release();
 		return false;
 	}
-
-	_writerPtr->release();
 	return true;
 }
 

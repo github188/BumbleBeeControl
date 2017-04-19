@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 #include <QDateTime>
 #include <QFile>
 #include <QFileDialog>
@@ -10,6 +11,7 @@
 #include <QPair>
 #include <QTime>
 #include <QTimer>
+#include <QTimeZone>
 #include <QThread>
 #include <QString>
 #include <QSettings>
@@ -70,8 +72,6 @@ private Q_SLOTS:
 	void set_state_pic_green_manual();
 	//Change StimulateButtonsEnableState;
 	void changeStimulusButtonsState();
-	//Check Record Thread is finished
-	void checkRecordThread();
 	//Change record button state
 	void changeRecordButtonsState();
 	//setStimulate param
@@ -102,7 +102,7 @@ private:
 	QTimer _displayTimer;
 	QTimer _recordInfoUpdaterTimer;
 	QTimer _checkRecordThreadTimer;
-	QDateTime _recordLastUpdateTime;
+	qlonglong _recordLastUpdateTime;
 	qint32 _displayInterval;
 	cv::Mat _displayImage;
 
