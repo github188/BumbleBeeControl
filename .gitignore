@@ -44,5 +44,5 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user
 
-#config file
+#config file*
 .ini
