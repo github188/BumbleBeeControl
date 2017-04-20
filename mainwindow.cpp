@@ -503,13 +503,4 @@ void MainWindow::on_actionSetting_triggered()
     _setdialogPtr->show();
 }
 
-void MainWindow::on_actionHDF5Convertor_triggered()
-{
-    _cvtDialogPtr =  new cvtH5Dialog(this);
-    _cvtDialogPtr->show();
-}
-
-
-
-
 

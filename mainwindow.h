@@ -23,7 +23,6 @@
 #include "ControlCAN.h"
 #include "configs.h"
 #include "cqtopencvviewergl.h"
-#include "cvth5dialog.h"
 #include "genlcamcap.h"
 #include "imagepacket.h"
 #include "imagebuffer.h"
@@ -114,7 +113,6 @@ private:
 	OpenCVSink *_opencvSinkPtr;
 
 	Configs *_configPtr;
-	cvtH5Dialog *_cvtDialogPtr;
 	Settings *_setdialogPtr;
 	//Videosavepath *_videopathPtr;
 
