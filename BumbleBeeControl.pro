@@ -17,9 +17,7 @@ SOURCES += main.cpp\
         settings.cpp \
         cqtopencvviewergl.cpp \
         configs.cpp \
-        cvth5dialog.cpp \
         genlcamcap.cpp \
-        hdf5cvt.cpp \
         imagebuffer.cpp \
         opencvsink.cpp \
         hdf5sink.cpp
@@ -29,9 +27,7 @@ HEADERS  += mainwindow.h \
         ControlCAN.h \
         cqtopencvviewergl.h \
         configs.h \
-        cvth5dialog.h \
         genlcamcap.h \
-        hdf5cvt.h \
         imagebuffer.h \
         imagepacket.h \
         opencvsink.h \
@@ -41,7 +37,6 @@ HEADERS  += mainwindow.h \
 FORMS    += \
         mainwindow.ui \
         settings.ui \
-        cvth5dialog.ui \
         genlcamcap.ui
 
 RESOURCES += \
