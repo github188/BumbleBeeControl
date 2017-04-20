@@ -82,7 +82,6 @@ private Q_SLOTS:
 	//void init_status();
 	//Menu actions
 	void on_actionSetting_triggered();
-	void on_actionHDF5Convertor_triggered();
 
 private:
 
